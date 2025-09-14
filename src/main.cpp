@@ -1,80 +1,59 @@
-﻿#define SDL_MAIN_USE_CALLBACKS
-
+﻿#define SDL_MAIN_USE_CALLBACKS 1  /* use the callbacks instead of main() */
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
+/* We will use this renderer to draw into this window every frame. */
 static SDL_Window* window = NULL;
 static SDL_Renderer* renderer = NULL;
 
-static SDL_FRect mouseposrect;
-
-SDL_AppResult SDL_AppIterate(void* appstate)
-{
-    Uint8 r;
-
-    /* fade between shades of red every 3 seconds, from 0 to 255. */
-    r = (Uint8)((((float)(SDL_GetTicks() % 3000)) / 3000.0f) * 255.0f);
-    SDL_SetRenderDrawColor(renderer, r, 0, 0, 255);
-
-    /* you have to draw the whole window every frame. Clearing it makes sure the whole thing is sane. */
-    SDL_RenderClear(renderer);  /* clear whole window to that fade color. */
-
-    /* set the color to white */
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-
-    /* draw a square where the mouse cursor currently is. */
-    SDL_RenderFillRect(renderer, &mouseposrect);
-
-    /* put everything we drew to the screen. */
-    SDL_RenderPresent(renderer);
-
-    return SDL_APP_CONTINUE;
-}
-
-SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
-{
-    switch (event->type) {
-    case SDL_EVENT_QUIT:  /* triggers on last window close and other things. End the program. */
-        return SDL_APP_SUCCESS;
-
-    case SDL_EVENT_KEY_DOWN:  /* quit if user hits ESC key */
-        if (event->key.scancode == SDL_SCANCODE_ESCAPE) {
-            return SDL_APP_SUCCESS;
-        }
-        break;
-
-    case SDL_EVENT_MOUSE_MOTION:  /* keep track of the latest mouse position */
-        /* center the square where the mouse is */
-        mouseposrect.x = event->motion.x - (mouseposrect.w / 2);
-        mouseposrect.y = event->motion.y - (mouseposrect.h / 2);
-        break;
-    }
-    return SDL_APP_CONTINUE;
-}
-
+/* This function runs once at startup. */
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 {
-    SDL_SetAppMetadata("SDL Hello World Example", "1.0", "com.example.sdl-hello-world");
+    SDL_SetAppMetadata("Example Renderer Clear", "1.0", "com.example.renderer-clear");
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
-        SDL_Log("SDL_Init(SDL_INIT_VIDEO) failed: %s", SDL_GetError());
+        SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
 
-    if (!SDL_CreateWindowAndRenderer("Hello SDL", 640, 480, SDL_WINDOW_RESIZABLE, &window, &renderer)) {
-        SDL_Log("SDL_CreateWindowAndRenderer() failed: %s", SDL_GetError());
+    if (!SDL_CreateWindowAndRenderer("examples/renderer/clear", 640, 480, 0, &window, &renderer)) {
+        SDL_Log("Couldn't create window/renderer: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
 
-    mouseposrect.x = mouseposrect.y = -1000;  /* -1000 so it's offscreen at start */
-    mouseposrect.w = mouseposrect.h = 50;
-
-    return SDL_APP_CONTINUE;
+    return SDL_APP_CONTINUE;  /* carry on with the program! */
 }
 
+/* This function runs when a new event (mouse input, keypresses, etc) occurs. */
+SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
+{
+    if (event->type == SDL_EVENT_QUIT) {
+        return SDL_APP_SUCCESS;  /* end the program, reporting success to the OS. */
+    }
+    return SDL_APP_CONTINUE;  /* carry on with the program! */
+}
+
+/* This function runs once per frame, and is the heart of the program. */
+SDL_AppResult SDL_AppIterate(void* appstate)
+{
+    const double now = ((double)SDL_GetTicks()) / 1000.0;  /* convert from milliseconds to seconds. */
+    /* choose the color for the frame we will draw. The sine wave trick makes it fade between colors smoothly. */
+    const float red = (float)(0.5 + 0.5 * SDL_sin(now));
+    const float green = (float)(0.5 + 0.5 * SDL_sin(now + SDL_PI_D * 2 / 3));
+    const float blue = (float)(0.5 + 0.5 * SDL_sin(now + SDL_PI_D * 4 / 3));
+    SDL_SetRenderDrawColorFloat(renderer, red, green, blue, SDL_ALPHA_OPAQUE_FLOAT);  /* new color, full alpha. */
+
+    /* clear the window to the draw color. */
+    SDL_RenderClear(renderer);
+
+    /* put the newly-cleared rendering on the screen. */
+    SDL_RenderPresent(renderer);
+
+    return SDL_APP_CONTINUE;  /* carry on with the program! */
+}
+
+/* This function runs once at shutdown. */
 void SDL_AppQuit(void* appstate, SDL_AppResult result)
 {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+    /* SDL will clean up the window/renderer for us. */
 }
