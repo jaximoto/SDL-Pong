@@ -27,7 +27,7 @@ public:
 
 	// Still need a virtual destructor for proper cleanup of derived classes
 	virtual ~DrawableGameObject() = default;
-	virtual void draw(SDL_Renderer& renderer) = 0;
+	virtual void Draw(SDL_Renderer* renderer) = 0;
 	virtual void update(float delta_time) = 0;
 
 };
