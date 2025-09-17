@@ -26,7 +26,8 @@ struct vector2 {
 		static const vector2 down;
 		static const vector2 left;
 		static const vector2 right;
-
+		//0perators
+		// 
 		//vector + vector
 		vector2 operator+(const vector2& other) {
 			return vector2(x + other.x, y + other.y);
@@ -39,11 +40,17 @@ struct vector2 {
 		vector2 operator*(float scalar) {
 			return vector2(x * scalar, y * scalar);
 		}
-		//what other things may we need
+		//member functions
+		// 
 		//dot product
-		//cross product
-		//standard directional vectors
+		float Dot(vector2 v1, vector2 v2) {
+			return (v1.x * v1.x + v1.y+v2.y)
+		}
+		//cross product i dont think we need
 		//normalized
+		vector2 normalized() {
+
+		}
 		//magnitude
 		//lerp
 		//move towards
