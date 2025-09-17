@@ -10,22 +10,11 @@ public:
 	int drawOrder; // Lower numbers drawn first
 	DrawableGameObject(float x, float y, float w, float h,
 		SDL_Renderer* renderer, int drawOrder,
-		Uint8 r, Uint8 g, Uint8 b, Uint8 a)
-	{
-		rect.x = x;
-		rect.y = y;
-		rect.w = w;
-		rect.h = h;
-		this->renderer = renderer;
-		this->r = r;
-		this->g = g;
-		this->b = b;
-		this->a = a;
-		this->drawOrder = drawOrder;
-	}
+		Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+
 
 	// Still need a virtual destructor for proper cleanup of derived classes
 	virtual ~DrawableGameObject() = default;
-	void Draw(SDL_Renderer* renderer) = 0;
+	void Draw(SDL_Renderer* renderer) override;
 
 };

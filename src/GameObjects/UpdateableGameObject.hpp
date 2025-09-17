@@ -9,6 +9,6 @@ class UpdateableGameObject : public GameObject, public Updateable
 
 		// Still need a virtual destructor for proper cleanup of derived classes
 		virtual ~UpdateableGameObject() = default;
-		virtual void Update(float delta_time) = 0;
+		virtual void Update(float deltaTime) override;
 
 };

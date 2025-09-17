@@ -1,6 +1,6 @@
-#include "DrawableGameObject.hpp"
+#include "UDGameObject.hpp"
 
- DrawableGameObject::DrawableGameObject(float x, float y, float w, float h,
+UDGameObject::UDGameObject(float x, float y, float w, float h,
 	SDL_Renderer* renderer, int drawOrder,
 	Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
@@ -16,7 +16,7 @@
 	this->drawOrder = drawOrder;
 }
 
-void DrawableGameObject::Draw(SDL_Renderer* renderer){
+void UDGameObject::Draw(SDL_Renderer* renderer){
 	if (!SDL_SetRenderDrawColor(renderer, this->r, this->g, this->b, this->a)) {
 		SDL_LogError(SDL_LOG_PRIORITY_ERROR, "Couldn't change renderer draw color: %s\n", SDL_GetError());
 	};
@@ -24,4 +24,8 @@ void DrawableGameObject::Draw(SDL_Renderer* renderer){
 	// a const, and we can pass a const reference to the rect bc func promises not to mutate
 	if(SDL_RenderFillRect(renderer, &this->rect))
 		SDL_LogError(SDL_LOG_PRIORITY_ERROR, "Couldn't draw rect: %s\n", SDL_GetError());
+}
+
+void UDGameObject::Update(float delta_time) {
+	SDL_Log("Updating UDGameObject with delta_time: %f\n", delta_time);
 }

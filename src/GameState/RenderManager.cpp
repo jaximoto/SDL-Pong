@@ -30,7 +30,8 @@ void RenderManager::RenderObjects() {
 			return lhs->drawOrder < rhs->drawOrder;
 		});
 	
-	for (Drawable it : spriteList) {
+	// needed to make a ptr using "*" to a interface not an actual element bc you can't instantiate abstract classes
+	for (Drawable* it : spriteList) {
 		it->Draw(this->renderer);
 	}
 }
