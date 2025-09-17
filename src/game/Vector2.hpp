@@ -4,7 +4,6 @@
 //This namespace should get renamed lol
 //I dont think i can actually do it like this but i want to put something down and this feels intuitively how this would work
 struct vector2 {
-
 	public:
 		//x and y components of the vector
 		float x;
@@ -26,8 +25,7 @@ struct vector2 {
 		static const vector2 down;
 		static const vector2 left;
 		static const vector2 right;
-		//0perators
-		// 
+		//OPERATORS 
 		//vector + vector
 		vector2 operator+(const vector2& other) {
 			return vector2(x + other.x, y + other.y);
@@ -36,22 +34,49 @@ struct vector2 {
 		vector2 operator-(const vector2& other) {
 			return vector2(x - other.x, y - other.y);
 		}
+		//vector divide by vector
+		vector2 operator/(const vector2& other) {
+			return vector2(x/other.x, y/other.y)
+		}
 		//vector multiply by scalar
 		vector2 operator*(float scalar) {
 			return vector2(x * scalar, y * scalar);
 		}
-		//member functions
+		//vector divide by scalar
+		vector2 operator/(float scalar) {
+			return vector2(x / scalar, y / scalar)
+		}
+
+		//MEMBER FUNC
 		// 
-		//dot product
+		//vector dot product
 		float Dot(vector2 v1, vector2 v2) {
-			return (v1.x * v1.x + v1.y+v2.y)
+			return (v1.x * v2.x + v1.y * v2.y);
 		}
 		//cross product i dont think we need
-		//normalized
-		vector2 normalized() {
-
+		//returns float magn
+		float magnitude{
+			return SDL_sqrt(x * x + y * y);
 		}
-		//magnitude
+			float sqr_magnitude{
+					return x * x + y * y;
+		}
+		//returns a normalized vector based on current vector
+		vector2 normalize{
+			vector2 result = vector2(x, y);
+			result.Normalize();
+			return result;
+		}
+		//sets vector magnitude to 1, or 0
+		void Normalize(){
+			float num = this.magnitude;
+			if (num > 1E-05f){
+				this /= num;
+			}
+			else{
+				this = zero;
+			}
+		}
 		//lerp
 		//move towards
 };
