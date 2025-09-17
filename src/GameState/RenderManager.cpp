@@ -20,6 +20,7 @@ RenderManager::RenderManager(const char* title, int sWidth, int sHeight, int lWi
 RenderManager::~RenderManager() {
 	SDL_DestroyRenderer(this->renderer);
 	SDL_DestroyWindow(this->window);
+	DestroyObjects();
 
 }
 
@@ -34,6 +35,10 @@ void RenderManager::RenderObjects() {
 	for (Drawable* it : spriteList) {
 		it->Draw(this->renderer);
 	}
+}
+
+void RenderManager::RenderDone() {
+	SDL_RenderPresent(this->renderer);
 }
 void RenderManager::DestroyObjects() {
 	for (auto obj : spriteList) {

@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL3/SDL.h>
+#include "RenderManager.hpp"
 /*
 This class will be the glue for all the manager classes
 
@@ -10,6 +11,7 @@ Need Input Manager
 class GameState
 {
 public:
-	//RendererManager renderManager = new renderManager(SDL_Renderer* renderer, SDL_Window* window, int width, int height);
-	GameState(SDL_Renderer* renderer, SDL_Window* window, int width, int height)
+	RenderManager* renderManager;
+	GameState(const char* title, int sWidth, int sHeight, int lWidth, int lHeight, bool fullScreen);
+	~GameState();
 };

@@ -1,14 +1,13 @@
 #include "DrawableGameObject.hpp"
 
  DrawableGameObject::DrawableGameObject(float x, float y, float w, float h,
-	SDL_Renderer* renderer, int drawOrder,
+ int drawOrder,
 	Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
 	rect.x = x;
 	rect.y = y;
 	rect.w = w;
 	rect.h = h;
-	this->renderer = renderer;
 	this->r = r;
 	this->g = g;
 	this->b = b;
@@ -22,6 +21,6 @@ void DrawableGameObject::Draw(SDL_Renderer* renderer){
 	};
 	// needed to pass &this->rect instead of this->rect bc the function is expecting
 	// a const, and we can pass a const reference to the rect bc func promises not to mutate
-	if(SDL_RenderFillRect(renderer, &this->rect))
+	if(!SDL_RenderFillRect(renderer, &this->rect))
 		SDL_LogError(SDL_LOG_PRIORITY_ERROR, "Couldn't draw rect: %s\n", SDL_GetError());
 }

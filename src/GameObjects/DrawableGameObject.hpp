@@ -5,11 +5,10 @@
 class DrawableGameObject : public GameObject, public Drawable
 {
 public:
-	SDL_Renderer* renderer;
 	Uint8 r, g, b, a; // Color components
 	int drawOrder; // Lower numbers drawn first
 	DrawableGameObject(float x, float y, float w, float h,
-		SDL_Renderer* renderer, int drawOrder,
+		 int drawOrder,
 		Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
 
