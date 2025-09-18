@@ -80,9 +80,9 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     
 	GameState* gameState = static_cast<GameState*>(appstate);
 
-	gameState->renderManager->RenderObjects();
+	gameState->renderManager->Render();
 
-	gameState->renderManager->RenderDone();
+	
 
     return SDL_APP_CONTINUE;  /* carry on with the program! */
 }

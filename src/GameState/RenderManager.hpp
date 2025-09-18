@@ -10,17 +10,19 @@ class RenderManager {
 	int sHeight;
 	int lWidth;
 	int lHeight;
+	Color bgColor;
 	bool fullScreen;
 public:
 	std::vector<Drawable*> spriteList;
 	SDL_Renderer* renderer;
 
-	RenderManager(const char* title, int sWidth, int sHeight, int lWidth, int lHeight, bool fullScreen);
+	RenderManager(const char* title, int sWidth, int sHeight, int lWidth, int lHeight, bool fullScreen, Color bgColor = Color());
 	~RenderManager();
-	void RenderObjects();
-	void RenderDone();
+	void Render();
 	void AddObject(Drawable* obj) { spriteList.push_back(obj); }
+	void ChangeBGColor(Color color);
 
 private:
+	void RenderObjects();
 	void DestroyObjects();
 };
