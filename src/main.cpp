@@ -15,7 +15,7 @@ const int screenWidth = 1920;
 const int screenHeight = 1080;
 const int logicalWidth = 640;
 const int logicalHeight = 360;
-bool debug = false;
+bool debug = true;
 /* This function runs once at startup. */
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 {
@@ -34,10 +34,16 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     }
 
 	GameState* gameState = new GameState(title, screenWidth, screenHeight, logicalWidth, logicalHeight, false);
+    
+	DrawableGameObject* box = new DrawableGameObject(100, 100, 50, 50, 1, Color::Green);
 
-	DrawableGameObject* box = new DrawableGameObject(100, 100, 50, 50, 1, 255, 0, 0, 255);
+    DrawableGameObject* box1 = new DrawableGameObject(200, 50, 50, 50, 1, Color::Red);
+
+    DrawableGameObject* box2 = new DrawableGameObject(300, 0, 50, 50, 1, Color::Blue);
 
 	gameState->renderManager->AddObject(box);
+    gameState->renderManager->AddObject(box1);
+    gameState->renderManager->AddObject(box2);
 
 	*appstate = gameState;
     /*
@@ -55,6 +61,16 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
     if (event->type == SDL_EVENT_QUIT) {
         return SDL_APP_SUCCESS;  /* end the program, reporting success to the OS. */
     }
+
+    if (event->type == SDL_EVENT_KEY_DOWN) {
+        const SDL_KeyboardEvent* keyEvent = (const SDL_KeyboardEvent*)event;
+        if (keyEvent->key == SDLK_ESCAPE)
+            return SDL_APP_SUCCESS;
+    }
+    
+    
+
+
     return SDL_APP_CONTINUE;  /* carry on with the program! */
 }
 

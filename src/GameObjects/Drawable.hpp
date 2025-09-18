@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include "Color.hpp"
 class Drawable
 {
 public:
@@ -8,3 +8,5 @@ public:
     // still need a virtual destructor for proper cleanup of derived classes
     virtual ~Drawable() = default;
 };
+
+
