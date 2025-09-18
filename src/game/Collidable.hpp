@@ -1,13 +1,17 @@
 #pragma once
 #include <SDL_SDl.h>
 #include "Vector2.hpp"
+#include <string>
+#include <sstream>
+
 class Collidable {
 	//from an architecture stand point what will happen
 	//a GO will implement the collidable interface
 	//the go has information pertaining to it's hitbox
 	//we leave it alone. all we need to know is if should be 
 	//added to the rigidbody pool
-	public:
+	
+	protected:
 		bool is_trigger;
 
 }
@@ -16,7 +20,20 @@ struct collision {
 	Collidable* coll_a;
 	Collidable* coll_b;
 	vector2 pos;
+
+	public:
+		//gonna make a string constructor for collision data
+		//altering dummies types first
+		std::string toString() const {
+			std::ostringstream ss;
+			ss << "coll";
+		}
 }
+
+
+
+//this will probably end up holding types of colliders
+//and defining various collision types?
 ;
 
 

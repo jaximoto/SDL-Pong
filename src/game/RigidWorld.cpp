@@ -1,3 +1,5 @@
 #include "RigidWorld.hpp"
 
-RigidWorld::RigidWorld()
+RigidWorld::RigidWorld() {
+
+}

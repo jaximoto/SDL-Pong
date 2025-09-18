@@ -36,7 +36,7 @@ struct vector2 {
 		}
 		//vector divide by vector
 		vector2 operator/(const vector2& other) {
-			return vector2(x/other.x, y/other.y)
+			return vector2(x / other.x, y / other.y);
 		}
 		//vector multiply by scalar
 		vector2 operator*(float scalar) {
@@ -44,7 +44,7 @@ struct vector2 {
 		}
 		//vector divide by scalar
 		vector2 operator/(float scalar) {
-			return vector2(x / scalar, y / scalar)
+			return vector2(x / scalar, y / scalar);
 		}
 
 		//MEMBER FUNC
@@ -55,28 +55,31 @@ struct vector2 {
 		}
 		//cross product i dont think we need
 		//returns float magn
-		float magnitude{
-			return SDL_sqrt(x * x + y * y);
+		float magnitude(){
+			float res = SDL_sqrt(x * x + y * y);
+			return res;
 		}
-			float sqr_magnitude{
-					return x * x + y * y;
+		float sqr_magnitude(){
+			return (x * x + y * y);
+		}
+
+		//sets vector magnitude to 1, or 0
+		void Normalize() {
+			float num = this.magnitude;
+			if (num > 1E-05f) {
+				this /= num;
+			}
+			else {
+				this = zero;
+			}
 		}
 		//returns a normalized vector based on current vector
-		vector2 normalize{
+		vector2 normalized{
 			vector2 result = vector2(x, y);
 			result.Normalize();
 			return result;
 		}
-		//sets vector magnitude to 1, or 0
-		void Normalize(){
-			float num = this.magnitude;
-			if (num > 1E-05f){
-				this /= num;
-			}
-			else{
-				this = zero;
-			}
-		}
+
 		//lerp
 		//move towards
 };
