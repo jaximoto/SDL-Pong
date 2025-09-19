@@ -8,7 +8,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE src)
 
 target_link_libraries(${PROJECT_NAME} 
 PRIVATE vendor
-PUBLIC Color)
+PUBLIC Color
+PUBLIC GameObjects
+PUBLIC GameState)
 
 
 
