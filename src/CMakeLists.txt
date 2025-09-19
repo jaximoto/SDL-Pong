@@ -1,10 +1,14 @@
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS ./*.cpp)
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_subdirectory(Color)
+add_subdirectory(GameObjects)
+add_subdirectory(GameState)
+add_executable(${PROJECT_NAME} main.cpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE src)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE vendor)
+target_link_libraries(${PROJECT_NAME} 
+PRIVATE vendor
+PUBLIC Color)
 
 
 
