@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <sstream>
+#include <algorithm>
 //This namespace should get renamed lol
 //I dont think i can actually do it like this but i want to put something down and this feels intuitively how this would work
 struct vector2 {
@@ -82,7 +83,13 @@ struct vector2 {
 		float sqr_magnitude() const {
 			return (x * x + y * y);
 		}
-
+		//returns a new vector2 with minimum x,y components from  
+		vector2 min(const vector2& other) {
+			return(vector2(std::min(x, other.x), std::min(y, other.y)));
+		}
+		vector2 max(const vector2& other) {
+			return(vector2(std::max(x, other.x), std::max(y, other.y)));
+		}
 
 
 

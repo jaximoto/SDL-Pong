@@ -11,33 +11,24 @@ class RigidWorld {
 	~RigidWorld() = default;
 	//vector to hold all objects in a scene?
 	public:
-		static std::vector<Rigidbody> bodies;
+		static std::vector<Rigidbody*> bodies;
 
-		enum force_type {
-			velocity,
-			force,
-			impulse
-		};
+		void AddBody(Rigidbody* body) { bodies.push_back(body);}
 
 		//check all in scene
-		void CheckCollisions() {
+		void checkCollisions() {
 			//get rect_a from iterator somehow.
-			/*
-			for (auto it = bodies.begin(); it != bodies.end(); it++){
-				SDL_FRect rect_a = *it;
-				for (int i = *it + 1; i < bodies.size(); i++) {
-					SDL_FRect rect_b = bodies[i];
-					if (SDL_HasRectIntersectionFloat(rect_a, rect_b)) {
-						EvaluateCollision(it, bodies[i]);
-					}
+			
+			for (auto it = bodies.begin(); it != bodies.end(); it++) {
+				for (int i = 1; i < bodies.size(); i++) {
+					
 				}
 			}
-			*/
 		}
 
 
-		collision EvaluateCollision(Rigidbody rb1, Rigidbody rb2) {
-			collision coll;
+		Collidable::collision EvaluateCollision(Rigidbody rb1, Rigidbody rb2) {
+			Collidable::collision coll;
 			return coll;
 		}
 
@@ -45,19 +36,5 @@ class RigidWorld {
 		void PopulateColliderVect() {
 
 		}
-
-		//helper function for dummy "rect" GOs
-		SDL_FRect DummyCollAdd() {
-			SDL_FRect rect{};
-			rect.x = SDL_rand(640);
-			rect.y = SDL_rand(480);
-			rect.w = 10 + SDL_rand(40);
-			rect.h= 10 + SDL_rand(40);
-			
-			return rect;
-		}
-		//rect list fer testing purposes
-		std::vector<SDL_FRect> rects;
-		
 
 };

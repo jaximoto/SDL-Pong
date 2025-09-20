@@ -13,27 +13,40 @@ class Collidable {
 
 protected:
 	bool is_trigger;
+	SDL_FRect* rect_ptr;
 
-};
-//basic collision struct
-struct collision {
-	Collidable* coll_a;
-	Collidable* coll_b;
-	vector2 pos;
 
-	public:
-		//gonna make a string constructor for collision data
-		//altering dummies types first
-		std::string toString() const {
-			std::ostringstream ss;
-			ss << "coll";
+public:
+	struct collision {
+		const Collidable* coll_a;
+		const Collidable* coll_b;
+		SDL_FRect* intersect;
+
+	};
+
+	void checkCollision(const Collidable& other) {
+		collision coll;
+		if (SDL_GetRectIntersectionFloat(rect_ptr, other.rect_ptr, coll.intersect)) {
+			coll.coll_a = this;
+			coll.coll_b = &other;
+			evaluateCollision(coll);
 		}
+	}
+	//returns vector2 representing distance to move collidable out of other collider
+	vector2 evaluateCollision(collision coll){
+		vector2 v_out = vector2(coll.intersect->w, coll.intersect->h);
+		if (v_out.x > v_out.y) {
+			v_out.y = coll.intersect->y;
+		}
+		else {
+			v_out.x = coll.intersect->x;
+		}
+		return v_out;
+	}
+	
+
 };
 
-
-
-//this will probably end up holding types of colliders
-//and defining various collision types?
 
 
 
