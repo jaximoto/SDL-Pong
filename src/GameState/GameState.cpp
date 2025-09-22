@@ -7,3 +7,11 @@ GameState::GameState(const char* title, int sWidth, int sHeight, int lWidth, int
 GameState::~GameState() {
 	delete this->renderManager;
 }
+
+void GameState::Update() {
+	this->updateManager->Update();
+}
+
+void GameState::Render() {
+	this->renderManager->Render();
+}
