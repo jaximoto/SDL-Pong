@@ -3,6 +3,7 @@
 #include <SDL3/SDL_main.h>
 #include <GameState.hpp>
 #include <DrawableGameObject.hpp>
+#include <UDGameObject.hpp>
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
 
@@ -35,11 +36,11 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 
 	GameState* gameState = new GameState(title, screenWidth, screenHeight, logicalWidth, logicalHeight, false);
     
-	DrawableGameObject* box = new DrawableGameObject(100, 100, 50, 50, 1, Color::Green);
+	UDGameObject* box = new UDGameObject(100, 100, 50, 50, 1, Color::Green);
 
-    DrawableGameObject* box1 = new DrawableGameObject(200, 50, 50, 50, 1, Color::Red);
+    UDGameObject* box1 = new UDGameObject(200, 50, 50, 50, 1, Color::Red);
 
-    DrawableGameObject* box2 = new DrawableGameObject(300, 0, 50, 50, 1, Color::Blue);
+    UDGameObject* box2 = new UDGameObject(300, 0, 50, 50, 1, Color::Blue);
 
 	gameState->renderManager->AddObject(box);
     gameState->renderManager->AddObject(box1);
@@ -79,8 +80,8 @@ SDL_AppResult SDL_AppIterate(void* appstate)
 {
     
 	GameState* gameState = static_cast<GameState*>(appstate);
-
-	gameState->renderManager->Render();
+    gameState->Update();
+	gameState->Render();
 
 	
 

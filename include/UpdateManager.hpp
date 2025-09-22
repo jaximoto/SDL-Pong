@@ -5,9 +5,14 @@
 #include <vector>
 class UpdateManager
 {
+	Uint64 last_frame_time;
 	public:
-		vector<Updateable*> updateList;
-		UpdateManager() = default;
-		~UpdateManager() = default;
+		float deltaTime;
+		std::vector<Updateable*> updateList;
+		UpdateManager();
+		~UpdateManager();
 		void Update();
+
+	private:
+		void CalcDeltaTime();
 };

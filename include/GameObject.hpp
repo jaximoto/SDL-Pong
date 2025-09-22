@@ -15,7 +15,9 @@ class GameObject
 
 
 		// Member functions:
-		void translate(float x, float y);
+		void Translate(float x, float y);
 		// No rotation for now, bc can't rotate rects
-		void scale(float factor);
+		void Scale(float factor);
+
+		void Morph(float width, float height);
 };

@@ -7,15 +7,21 @@ GameObject::GameObject(float x, float y, float width, float height){
 	rect.w = width;
 	rect.h = height;
 }
-void GameObject::translate(float x, float y)
+void GameObject::Translate(float x, float y)
 {
 	rect.x += x;
 	rect.y += y;
 }
 
-void GameObject::scale(float factor)
+void GameObject::Scale(float factor)
 {
 	rect.w *= factor;
 	rect.h *= factor;
+}
+
+void GameObject::Morph(float width, float height)
+{
+	rect.w = width;
+	rect.h = height;
 }
 
