@@ -1,8 +1,8 @@
 ﻿#define SDL_MAIN_USE_CALLBACKS 1  /* use the callbacks instead of main() */
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
-#include "GameState/GameState.hpp"
-#include "GameObjects/DrawableGameObject.hpp"
+#include <GameState.hpp>
+#include <DrawableGameObject.hpp>
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
 
