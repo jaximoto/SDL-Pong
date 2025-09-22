@@ -1,13 +1,17 @@
 #include <UpdateManager.hpp>
 UpdateManager::UpdateManager()
-	:last_frame_time(SDL_GetTicks())
+	:last_frame_time(SDL_GetTicks()), deltaTime(last_frame_time)
+
 { }
 
 UpdateManager::~UpdateManager()
 {
 	for (auto obj : updateList)
 	{
+		if (obj == nullptr)
+			continue;
 		delete obj;
+		obj = nullptr;
 	}
 	updateList.clear();
 }

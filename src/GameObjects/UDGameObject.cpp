@@ -17,7 +17,7 @@ void UDGameObject::Draw(SDL_Renderer* renderer){
 	};
 	// needed to pass &this->rect instead of this->rect bc the function is expecting
 	// a const, and we can pass a const reference to the rect bc func promises not to mutate
-	if(SDL_RenderFillRect(renderer, &this->rect))
+	if(!SDL_RenderFillRect(renderer, &this->rect))
 		SDL_LogError(SDL_LOG_PRIORITY_ERROR, "Couldn't draw rect: %s\n", SDL_GetError());
 }
 

@@ -56,7 +56,10 @@ void RenderManager::Render() {
 
 void RenderManager::DestroyObjects() {
 	for (auto obj : spriteList) {
+		if (obj == nullptr)
+			continue;
 		delete obj;
+		obj = nullptr;
 	}
 	spriteList.clear();
 }
