@@ -1,22 +1,10 @@
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS ./*.cpp)
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS *.cpp *.hpp)
+add_executable(${PROJECT_NAME} ${SRC_FILES})
 
-target_include_directories(${PROJECT_NAME} PRIVATE src)
+target_include_directories(${PROJECT_NAME} PRIVATE src ../include)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE vendor)
-
-
-
+target_link_libraries(${PROJECT_NAME} 
+PRIVATE SDL3::SDL3)
 
 
-
-#file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
-#target_include_directories((${PROJECT_NAME} PRIVATE src)
-#add_executable(${PROJECT_NAME} ${SOURCES})
-#target_sources(${PROJECT_NAME} PRIVATE main.cpp)
-#target_link_libraries(${PROJECT_NAME} PRIVATE vendor)
-
-
-#add_executable(Test)
-#target_sources(Test PRIVATE main.cpp)

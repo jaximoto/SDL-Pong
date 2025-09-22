@@ -16,6 +16,7 @@ void DrawableGameObject::Draw(SDL_Renderer* renderer){
 	if (!SDL_SetRenderDrawColor(renderer, this->color.r, this->color.g, this->color.b, this->color.a)) {
 		SDL_LogError(SDL_LOG_PRIORITY_ERROR, "Couldn't change renderer draw color: %s\n", SDL_GetError());
 	};
+	
 	// needed to pass &this->rect instead of this->rect bc the function is expecting
 	// a const, and we can pass a const reference to the rect bc func promises not to mutate
 	if(!SDL_RenderFillRect(renderer, &this->rect))

@@ -1,6 +1,6 @@
 #pragma once
 #include <SDL3/SDL.h>
-#include "../GameObjects/Drawable.hpp"
+#include <Drawable.hpp>
 #include <vector>
 #include <algorithm>
 class RenderManager {
