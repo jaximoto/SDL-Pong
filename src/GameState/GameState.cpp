@@ -17,3 +17,14 @@ void GameState::Update() {
 void GameState::Render() {
 	this->renderManager->Render();
 }
+
+UpdateableGameObject* GameState::CreateUpdateableGameObject(float x, float y, float w, float h)
+{
+	UpdateableGameObject* obj = new UpdateableGameObject(x, y, w, h);
+	this->updateManager->AddUpdateable(obj);
+	return obj;
+}
+DrawableGameObject* GameState::CreateDrawableGameObject(float x, float y, float w, float h,
+	int drawOrder, Color color);
+UDGameObject* GameState::CreateUDGameObject(float x, float y, float w, float h,
+	int drawOrder, Color color);

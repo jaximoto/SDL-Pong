@@ -24,6 +24,33 @@ void UpdateManager::Update() {
 	}
 }
 
+bool UpdateManager::AddItem(Updateable* item)
+{
+	// In a real engine these would be logged and in a hashmap
+	if (item == nullptr)
+		return false;
+
+	// Prevent adding duplicates
+	auto it = std::find(updateList.begin(), updateList.end(), item);
+	if (it != updateList.end())
+		return false;
+
+	updateList.push_back(item);
+	return true;
+}
+
+bool UpdateManager::RemoveItem(Updateable* item)
+{
+	// This will blow up the whole program if item is not found, maybe not
+	auto it = std::find(updateList.begin(), updateList.end(), item);
+	if (it != updateList.end())
+	{
+		updateList.erase(it);
+		return true;
+	}
+	return false;
+
+}
 void UpdateManager::CalcDeltaTime()
 {
 	Uint64 currentTime = SDL_GetTicks();
